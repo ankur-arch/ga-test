@@ -8,6 +8,7 @@ export async function GET() {
   const start = Date.now();
 
   const result = await prisma.post.aggregate({
+    take: 100_000,
     _min: {
       views: true,
     },
