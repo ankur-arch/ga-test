@@ -3,6 +3,7 @@ import prisma from "@/utils/prisma";
 // disabling caching
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
+export const runtime = "edge";
 
 export async function GET() {
   const start = Date.now();
@@ -19,6 +20,10 @@ export async function GET() {
       _max: {
         views: true,
         createdAt: true,
+      },
+      cacheStrategy: {
+        ttl: 60,
+        swr: 10,
       },
     })
     .withAccelerateInfo();
