@@ -7,19 +7,21 @@ export const revalidate = 0;
 export async function GET() {
   const start = Date.now();
 
-  const result = await prisma.post.aggregate({
-    _min: {
-      createdAt: true,
-      views: true,
-    },
-    _sum: {
-      views: true,
-    },
-    _max: {
-      views: true,
-      createdAt: true,
-    },
-  });
+  const result = await prisma.post
+    .aggregate({
+      _min: {
+        createdAt: true,
+        views: true,
+      },
+      _sum: {
+        views: true,
+      },
+      _max: {
+        views: true,
+        createdAt: true,
+      },
+    })
+    .withAccelerateInfo();
 
   return Response.json({
     result,
