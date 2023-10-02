@@ -8,11 +8,15 @@ export async function GET() {
   const start = Date.now();
 
   const result = await prismaWithAccelerate.post.aggregate({
-    take: 100_000,
     _min: {
+      createdAt: true,
+      views: true,
+    },
+    _sum: {
       views: true,
     },
     _max: {
+      views: true,
       createdAt: true,
     },
   });
