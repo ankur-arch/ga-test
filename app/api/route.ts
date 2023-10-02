@@ -23,7 +23,7 @@ export async function GET() {
       },
       cacheStrategy: {
         ttl: 60,
-        swr: 10,
+        swr: 20,
       },
     })
     .withAccelerateInfo();
