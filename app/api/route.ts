@@ -7,10 +7,17 @@ export const revalidate = 0;
 export async function GET() {
   const start = Date.now();
 
-  const count = await prisma.post.count();
+  const result = await prisma.post.aggregate({
+    _min: {
+      views: true,
+    },
+    _max: {
+      createdAt: true,
+    },
+  });
 
   return Response.json({
-    "Post count": count,
+    result,
     timeTaken: `${Date.now() - start} ms`,
   });
 }
